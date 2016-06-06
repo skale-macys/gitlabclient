@@ -1,0 +1,17 @@
+{
+    "headers": {
+        "PRIVATE-TOKEN": "x8K3AFPdt_gVkv446ABa"
+    }, 
+    "gitlab": {
+        "openDays" : 4,
+        "MaxNoOfComments": 5
+    },
+    "approversList" : [
+    "M821323","M622905","M477231","M802998","M898107","M458956",
+    "U005244","U029497","U06SXA","U06RXJ","U06EXO","U671175","U032746",
+    "U06EXF","U049659","U06RXO",
+    "Y910242","YC05M1D","YC26F1C","YC26TG1","YC26TG1","YC05RP2", "YC22AM3"],
+
+
+    "author": "Shekhar Kale"
+}
