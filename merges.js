@@ -6,14 +6,11 @@
 */
 "use strict";
 var request = require( "request" ),
-    mergedMergeRequests = 'https://code.devops.fds.com/api/v3/projects/2/merge_requests?per_page=50&state=merged&page=',
-    openMergeRequests = 'https://code.devops.fds.com/api/v3/projects/2/merge_requests?state=opened&page=',
-    allMergedRequests = 'https://code.devops.fds.com/api/v3/projects/2/merge_requests?state=merged&page=',
     approversURL='https://code.devops.fds.com/api/v3/projects/2/merge_request/{{id}}/comments',
     args,   
     gitlabOptions,
     resultLen,
-    gitUrls = openMergeRequests + "0",
+    gitAction = 'opened',
     gitlabClient = require("./gitlabClient");
 
 
@@ -33,6 +30,8 @@ function callMergeRequest(mergeOptions, callback) {
         });
     });
 }
+
+
 
 
 var mergedResults = (body, action) => {
@@ -83,7 +82,9 @@ function callCommitRequest(commitOptions, callback) {
 var approvalResults = (body, mergeItem) => {
     var result = JSON.parse(body);
 
+
     if(result.length > gitlabOptions.config.gitlab.MaxNoOfComments){
+
         console.log( "Merge request ID: " + mergeItem.id + " IID: " + mergeItem.merge_id );
         console.log( "Approver: " + mergeItem.assignee + " " + mergeItem.assignee_id );
         console.log( "Author: " + mergeItem.name + " " + mergeItem.userid );
@@ -114,9 +115,8 @@ args = process.argv.slice(2)
  open
 */
 
-gitUrls = (args[0] == 'merge') ? mergedMergeRequests : openMergeRequests;
-gitUrls += "0";
-gitlabOptions = gitlabClient.setup({}, {url:gitUrls});
+gitAction = (args[0] == 'merge') ? 'merged' : 'opened';
+gitlabOptions = gitlabClient.setup({}, {action:gitAction});
 
 
 callMergeRequest(gitlabOptions)
@@ -147,6 +147,8 @@ callMergeRequest(gitlabOptions)
         console.log("--------------------");
         Array.from(resultMap).forEach(item => {
             let mergeid = item[1].id;
+
+
             approverOptions.options.url = approversURL.replace( "{{id}}", mergeid );
             approverOptions.options.headers["merge_request_id"] = mergeid;
 

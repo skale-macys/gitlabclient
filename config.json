@@ -4,7 +4,12 @@
     }, 
     "gitlab": {
         "openDays" : 4,
-        "MaxNoOfComments": 5
+        "MaxNoOfComments": 5,
+        "project" : 2, 
+        "per_page" : 100,
+        "preUrl": "https://code.devops.fds.com/api/v3/projects/",
+        "postUrl": "/merge_requests?state=",
+        "pageUrl": "&per_page="
     },
     "approversList" : [
     "M821323","M622905","M477231","M802998","M898107","M458956",
